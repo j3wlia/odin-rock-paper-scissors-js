@@ -44,7 +44,7 @@ function getHumanChoice() {
   }
 }
 
-function gameRound(humanChoice, computerChoice) {
+function playRound(humanChoice, computerChoice) {
   if (humanChoice === 'paper' && computerChoice === 'rock') {
     humanScore++;
     alert('You win! Paper beats Rock.');
@@ -87,7 +87,7 @@ function playGame() {
   for (let i = 0; i < 5; i++) {
     const humanSelection = getHumanChoice().toLowerCase();
     const computerSelection = getComputerChoice().toLowerCase();
-    gameRound(humanSelection, computerSelection);
+    playRound(humanSelection, computerSelection);
   }
 
   if (humanScore > computerScore) {
