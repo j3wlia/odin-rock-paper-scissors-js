@@ -1,108 +1,70 @@
-// console.log('Hello World');
-
 let humanScore = 0;
 let computerScore = 0;
+let roundsPlayed = 0;
+
+const choiceList = ['rock', 'paper', 'scissors'];
+const resultDiv = document.getElementById('result');
+const scoreDiv = document.getElementById('score');
+const playAgainBtn = document.getElementById('playAgain');
 
 function getComputerChoice() {
-  const randomInt = Math.floor(Math.random() * 3);
-  //   console.log(randomInt);
-  if (randomInt === 0) {
-    return 'Rock';
-  } 
-  
-  else if (randomInt === 1) {
-    return 'Paper';
-  } 
-  
-  else {
-    return 'Scissors';
-  }
+    const randomInt = Math.floor(Math.random() * choiceList.length);
+    return choiceList[randomInt];
 }
 
-function getHumanChoice() {
-  
-  while (true) {
-    let humanChoice = prompt(`Please enter "Rock", "Paper", or "Scissors".`);
-    
-    if (humanChoice.toLowerCase() === 'rock') {
-      return 'Rock';
-    } 
-    
-    else if (humanChoice.toLowerCase() === 'paper') {
-      return 'Paper';
-    } 
-    
-    else if (humanChoice.toLowerCase() === 'scissors') {
-      return 'Scissors';
-    } 
-    
-    else {
-      alert(
-        `Invalid! Please enter a valid move: "Rock", "Paper, or "Scissors".`
-      );
+function playRound(humanChoice) {
+    if (roundsPlayed >= 5) return;
+
+    const computerChoice = getComputerChoice();
+    let result = '';
+
+    if (humanChoice === computerChoice) {
+        result = `It's a draw! Both chose ${humanChoice}.`;
+    } else if (
+        (humanChoice === 'rock' && computerChoice === 'scissors') ||
+        (humanChoice === 'scissors' && computerChoice === 'paper') ||
+        (humanChoice === 'paper' && computerChoice === 'rock')
+    ) {
+        humanScore++;
+        result = `You win! ${humanChoice} beats ${computerChoice}.`;
+    } else {
+        computerScore++;
+        result = `You lose! ${computerChoice} beats ${humanChoice}.`;
     }
-  }
+
+    roundsPlayed++;
+    resultDiv.textContent = result;
+    updateScore();
+
+    if (roundsPlayed === 5) {
+        endGame();
+    }
 }
 
-function playRound(humanChoice, computerChoice) {
-  if (humanChoice === 'paper' && computerChoice === 'rock') {
-    humanScore++;
-    alert('You win! Paper beats Rock.');
-  } 
-  
-  else if (humanChoice === 'rock' && computerChoice === 'scissors') {
-    humanScore++;
-    alert('You win! Rock beats Scissors.');
-  } 
-  
-  else if (humanChoice === 'scissors' && computerChoice === 'paper') {
-    humanScore++;
-    alert('You win! Scissors beats Paper.');
-  } 
-  
-  else if (computerChoice === 'paper' && humanChoice === 'rock') {
-    computerScore++;
-    alert('You lose! Paper beats Rock.');
-  } 
-  
-  else if (computerChoice === 'rock' && humanChoice === 'scissors') {
-    computerScore++;
-    alert('You lose! Rock beats Scissors.');
-  } 
-  
-  else if (computerChoice === 'scissors' && humanChoice === 'paper') {
-    computerScore++;
-    alert('You lose! Scissors beats Paper.');
-  } 
-  
-  else {
-    alert(`It's a draw!`);
-  }
+function updateScore() {
+    scoreDiv.textContent = `Score - You: ${humanScore}, Computer: ${computerScore}`;
 }
 
-function playGame() {
-  humanScore = 0;
-  computerScore = 0;
-
-  for (let i = 0; i < 5; i++) {
-    const humanSelection = getHumanChoice().toLowerCase();
-    const computerSelection = getComputerChoice().toLowerCase();
-    playRound(humanSelection, computerSelection);
-  }
-
-  if (humanScore > computerScore) {
-    alert('Congratulations! You win!');
-  } 
-  
-  else if (humanScore < computerScore) {
-    alert('You lost! Try again.');
-  } 
-  
-  else {
-    alert(`It's a draw! Replay?`);
-  }
+function endGame() {
+    let finalResult = '';
+    if (humanScore > computerScore) {
+        finalResult = 'Congratulations! You win the game!';
+    } else if (humanScore < computerScore) {
+        finalResult = 'You lost the game. Better luck next time!';
+    } else {
+        finalResult = 'The game is a draw!';
+    }
+    resultDiv.textContent = finalResult;
+    playAgainBtn.style.display = 'block';
 }
 
-while (true) {
-  playGame();
+function resetGame() {
+    humanScore = 0;
+    computerScore = 0;
+    roundsPlayed = 0;
+    resultDiv.textContent = '';
+    updateScore();
+    playAgainBtn.style.display = 'none';
 }
+
+updateScore();

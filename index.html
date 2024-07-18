@@ -1,14 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>RPS game</title>
+    <title>Rock Paper Scissors Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+        button {
+            margin: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+        #result, #score {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+    </style>
 </head>
-
 <body>
-    <script src="script.js" defer></script>
-</body>
+    <h1>Rock Paper Scissors</h1>
+    <div>
+        <button onclick="playRound('rock')">Rock</button>
+        <button onclick="playRound('paper')">Paper</button>
+        <button onclick="playRound('scissors')">Scissors</button>
+    </div>
+    <div id="result"></div>
+    <div id="score"></div>
+    <button id="playAgain" style="display: none;" onclick="resetGame()">Play Again</button>
 
+    <script src="script.js"></script>
+</body>
 </html>
