@@ -1,3 +1,4 @@
+
 // console.log('Hello World');
 
 let humanScore = 0;
@@ -91,15 +92,15 @@ function playGame() {
   }
 
   if (humanScore > computerScore) {
-    alert('Congratulations! You win!');
+    alert('You won 5 rounds! Congratulations!');
   } 
   
   else if (humanScore < computerScore) {
-    alert('You lost! Try again.');
+    alert('You lost 5 rounds! Try again.');
   } 
   
   else {
-    alert(`It's a draw! Replay?`);
+    alert(`It's a draw! 5 rounds ended. Replay?`);
   }
 }
 
